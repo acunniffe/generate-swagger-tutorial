@@ -44,7 +44,6 @@ function withRoot(Component) {
 					}
 				`}</style>
 
-              <!-- Global site tag (gtag.js) - Google Analytics -->
               <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112777347-2"/>
               <script children={`
               window.dataLayer = window.dataLayer || [];

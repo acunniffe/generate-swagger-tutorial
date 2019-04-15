@@ -13,13 +13,13 @@ const frameworkColors = {
 	'Django': '#65b48e'
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = ({ graphql, actions }) => new Promise((resolve, reject) => {
+
 	const { createPage } = actions
 	const setupHead = fs.readFileSync('./src/templates/setuphead.md').toString()
 	const setupTail = fs.readFileSync('./src/templates/setuptail.md').toString()
 
 	const docPage = path.resolve(`./src/templates/doc-post.js`)
-
 
 	fetch('https://s3.amazonaws.com/current-optic-docs-website/integrations_docs.json')
 		.then(res => res.json())
@@ -36,9 +36,9 @@ exports.createPages = ({ graphql, actions }) => {
 				}
 			})
 
-			json.forEach((doc) => {
+			Promise.all(json.map((doc) => {
 
-				fetch(doc.raw).then((res) => res.text()).then((docContents) => {
+				return fetch(doc.raw).then((res) => res.text()).then((docContents) => {
 
 					const docString = setupHead + '\n\n' + docContents + '\n\n' + setupTail
 
@@ -55,12 +55,12 @@ exports.createPages = ({ graphql, actions }) => {
 				}).catch(() => {
 					throw new Error('could not load docs for '+doc.name)
 				})
-			})
+			})).then(resolve)
 
 		})
 		.catch(e => console.error('unable to load doc links ' + e));
 
-}
+})
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
 	const { createNodeField } = actions
