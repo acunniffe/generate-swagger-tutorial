@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "starting build..."
+      - npm install gatsby@2.0.93 -g
+      - npm install
+      - npm run build
+artifacts:
+  discard-paths: no
+  base-directory: 'public'
+  files:
+    - '**/*'
