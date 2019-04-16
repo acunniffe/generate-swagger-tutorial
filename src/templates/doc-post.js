@@ -19,6 +19,9 @@ const styles = theme => ({
 		paddingLeft: 20,
 		paddingRight: 20
 	},
+	img: {
+		maxWidth: '100%'
+	},
 	title: {
 		lineHeight: 1.4
 	},
@@ -36,6 +39,7 @@ const styles = theme => ({
 	},
 	markdownRegion: {
 		maxWidth: 800,
+		width: '100%',
 		margin: '0 auto',
 		marginTop: 70,
 		flexDirection: 'column',
@@ -48,6 +52,8 @@ const styles = theme => ({
 		marginBottom: 30,
 		backgroundColor: '#2a2a2a',
 		padding: 5,
+		maxWidth: '100%',
+		overflow: 'scroll'
 	}
 
 });
@@ -128,10 +134,10 @@ const DocPost = (props) => {
 					<ReactMarkdown source={md} renderers={{
 						code: ({value, language}) => <pre className={classes.codeRegion}><PrismCode className={'language-' + language}>{value}</PrismCode></pre>,
 						heading: ({children, level}) => {
-							return <Typography variant="display2" component="h2" style={{color, marginTop: 22, fontSize: (level === 1) ? 35 : 20, fontWeight: 600}} className={classes.tddTitle}>{children}</Typography>
+							return <Typography variant="display2" component="h2" style={{color, marginTop: 22, maxWidth: '100%', fontSize: (level === 1) ? 35 : 20, fontWeight: 600}} className={classes.tddTitle}>{children}</Typography>
 						},
 						paragraph: ({children}) => {
-							return <Typography variant="subheading" style={{fontSize: 18, marginTop: 10}}>{children}</Typography>
+							return <Typography variant="subheading" style={{fontSize: 18, marginTop: 10, maxWidth: '100%'}}>{children}</Typography>
 						},
 						listItem: ({children}) => <li><Typography variant="subheading" style={{}}>{children}</Typography></li>,
 						inlineCode: ({children}) => <span style={{fontSize: 16, backgroundColor: '#e2e2e2', padding: 3, borderRadius: 6}}>{children}</span>
